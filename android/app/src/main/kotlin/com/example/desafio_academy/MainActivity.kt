@@ -1,0 +1,5 @@
+package com.example.desafio_academy
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity()
