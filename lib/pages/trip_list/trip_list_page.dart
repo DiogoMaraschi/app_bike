@@ -1,6 +1,6 @@
 import 'package:desafio_academy/database/database_helper.dart';
 import 'package:desafio_academy/model/trip.dart';
-import 'package:desafio_academy/pages/dialog_new_trip.dart';
+import 'package:desafio_academy/pages/trip_list/dialog_new_trip.dart';
 import 'package:desafio_academy/pages/trip_detail/trip_details_page.dart';
 import 'package:desafio_academy/pages/trip_list/trip_list_state.dart';
 import 'package:desafio_academy/repository/trip_repository.dart';
@@ -83,6 +83,9 @@ class _TripListDetailsPage extends StatelessWidget {
                   builder: (context) => TripDetailsPage(id: id),
                 ),
               );
+              if (!context.mounted) return;
+
+              await state.carregarLista();
             },
             child: Icon(Icons.directions_bike),
           ),

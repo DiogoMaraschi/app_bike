@@ -1,7 +1,10 @@
 import 'package:desafio_academy/global.dart';
 import 'package:desafio_academy/model/trip.dart';
+import 'package:desafio_academy/service/camera.dart';
+import 'package:desafio_academy/service/geolocation.dart';
 import 'package:flutter/material.dart';
 import 'package:desafio_academy/model/foto.dart';
+import 'package:geolocator/geolocator.dart';
 
 class TripDetailsState extends ChangeNotifier {
   final int id;
@@ -36,5 +39,26 @@ class TripDetailsState extends ChangeNotifier {
     await tripRepository.inserir(trip);
 
     notifyListeners();
+  }
+
+  Future<String?> tirarFoto() async {
+    return await Camera().captureImage();
+  }
+
+  Future<Position?> obterPosicao() async {
+    return await Geolocation().getCurrentPosition();
+  }
+
+  Future<void> salvarNota() async {
+    final path = await tirarFoto();
+    final position = await obterPosicao();
+    final foto = Foto(
+      image_path: path!,
+      data: DateTime.now(),
+      long: position!.longitude,
+      lati: position.latitude,
+      trip_id: trip!.id!,
+    );
+    fotoRepository.salvar(foto);
   }
 }

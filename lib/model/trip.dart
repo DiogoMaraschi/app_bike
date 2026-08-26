@@ -17,10 +17,12 @@ class Trip {
 
   factory Trip.fromMap(Map<String, dynamic> map) {
     return Trip(
-      id: map['id'],
-      dataInicio: DateTime.parse(map['dataInicio']),
-      dataFim: DateTime.tryParse(map['dataFim']) ?? DateTime(0000),
-      local: map['local'],
+      id: map['id'] as int?,
+      dataInicio: DateTime.parse(map['dataInicio'] as String),
+      dataFim: map['dataFim'] == null
+          ? null
+          : DateTime.parse(map['dataFim'] as String),
+      local: map['local'] as String,
     );
   }
 }

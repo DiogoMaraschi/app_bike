@@ -1,3 +1,4 @@
+import 'package:desafio_academy/service/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'trip_details_state.dart';
@@ -39,6 +40,11 @@ class _TripDetailsPage extends StatelessWidget {
                     ),
                   ],
                 ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () async {
+              await state.salvarNota();
+            },
+          ),
         );
       },
     );

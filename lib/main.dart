@@ -38,13 +38,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Camera camera = Camera();
-  File? file;
-
-  void _incrementCounter() {
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,21 +46,12 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: .center,
-          children: [
-            file == null ? const Text('Sem fotos') : Image.file(file!),
+        child: Column(mainAxisAlignment: .center, children: [
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final resul = await camera.captureImage();
-          setState(() {
-            file = resul;
-          });
-          print('Image file ${file!.path}');
-        },
+        onPressed: () async {},
         child: const Icon(Icons.camera),
       ),
     );
