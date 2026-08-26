@@ -8,7 +8,6 @@ late final FotoRepository fotoRepository;
 
 void initialize() {
   final db = DatabaseHelper();
-  db.apagarBanco();
 
   tripRepository = TripRepository(databaseHelper: db);
   fotoRepository = FotoRepository(databaseHelper: db);

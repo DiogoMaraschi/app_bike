@@ -48,12 +48,4 @@ class DatabaseHelper {
     final db = await database;
     return await db.query(tableName);
   }
-
-  Future<void> apagarBanco() async {
-    final caminho = await getDatabasesPath();
-
-    await deleteDatabase('$caminho/$databaseName');
-
-    _database = null;
-  }
 }

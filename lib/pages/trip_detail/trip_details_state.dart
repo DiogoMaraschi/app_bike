@@ -20,11 +20,7 @@ class TripDetailsState extends ChangeNotifier {
   Trip? get trip => _trip;
 
   Future<void> carregarTrip() async {
-    print('Buscando Trip ID: $id');
-
     _trip = await tripRepository.buscarPorId(id);
-
-    print('Trip encontrada: $_trip');
 
     notifyListeners();
   }
@@ -49,16 +45,36 @@ class TripDetailsState extends ChangeNotifier {
     return await Geolocation().getCurrentPosition();
   }
 
-  Future<void> salvarNota() async {
+  Future<void> salvarFoto() async {
     final path = await tirarFoto();
+
+    if (path == null) {
+      return;
+    }
+
     final position = await obterPosicao();
+
+    if (position == null) {
+      return;
+    }
+
     final foto = Foto(
-      image_path: path!,
+      image_path: path,
       data: DateTime.now(),
-      long: position!.longitude,
+      long: position.longitude,
       lati: position.latitude,
-      trip_id: trip!.id!,
+      trip_id: id,
     );
-    fotoRepository.salvar(foto);
+
+    await fotoRepository.salvar(foto);
+
+    _fotos.add(foto);
+    notifyListeners();
+  }
+
+  Future<void> finalizarTrip() async {
+    await tripRepository.finalizarTrip(id, DateTime.now());
+
+    await carregarTrip();
   }
 }

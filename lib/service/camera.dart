@@ -20,7 +20,9 @@ class Camera {
 
     final directory = await getApplicationDocumentsDirectory();
 
-    final String fileName = p.basename(pickedFile.path);
+    final extensao = p.extension(pickedFile.path);
+
+    final fileName = 'foto_${DateTime.now().microsecondsSinceEpoch}$extensao';
 
     final String path = p.join(directory.path, fileName);
 

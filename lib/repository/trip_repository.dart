@@ -30,12 +30,21 @@ class TripRepository {
       whereArgs: [id],
     );
 
-    print('Resultado buscarPorId: $result');
-
     if (result.isEmpty) {
       return null;
     }
 
     return Trip.fromMap(result.first);
+  }
+
+  Future<void> finalizarTrip(int id, DateTime datafim) async {
+    final conn = await databaseHelper.database;
+
+    await conn.update(
+      tableName,
+      {'dataFim': datafim.toIso8601String()},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
   }
 }
