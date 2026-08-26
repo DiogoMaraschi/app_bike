@@ -16,33 +16,19 @@ class Camera {
       imageQuality: 80,
     );
     if (pickedFile == null) {
-    return null;
-      }
+      return null;
+    }
 
     // 2. Get the permanent directory path
     final directory = await getApplicationDocumentsDirectory();
 
     // 3. Extract the original file name
-    final String fileName = p.basename('teste.jpg');
+    final String fileName = p.basename(pickedFile.path);
 
-    final savedImage = await File(pickedFile.path).copy('assets/images/$fileName');
+    final String path = p.join(directory.path, fileName);
+
+    final savedImage = await File(pickedFile.path).copy(path);
 
     return savedImage;
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(title: const Text('Camera Example')),
-  //     body: Center(
-  //       child: _imageFile == null
-  //           ? const Text('No image captured')
-  //           : Image.file(_imageFile!),
-  //     ),
-  //     floatingActionButton: FloatingActionButton(
-  //       onPressed: _captureImage,
-  //       child: const Icon(Icons.camera_alt),
-  //     ),
-  //   );
-  // }
 }

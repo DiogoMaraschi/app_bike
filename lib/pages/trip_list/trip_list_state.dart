@@ -1,13 +1,9 @@
-import 'package:desafio_academy/main.dart';
 import 'package:desafio_academy/model/trip.dart';
-import 'package:desafio_academy/repository/trip_repository.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../global.dart';
 
 class TripListState with ChangeNotifier {
-
-
   TripListState();
 
   final List<Trip> _trips = [];
@@ -17,7 +13,6 @@ class TripListState with ChangeNotifier {
   }
 
   Future<List<Trip>> carregarLista() async {
-    await inserir();
     final list = await tripRepository.buscar();
     _trips
       ..clear()
@@ -25,13 +20,10 @@ class TripListState with ChangeNotifier {
     notifyListeners();
     return _trips;
   }
-  
-  Future<void> inserir()async{
-    await tripRepository.inserir(Trip(dataInicio: DateTime(2000), dataFim: DateTime(2000)));
-    await tripRepository.inserir(Trip(dataInicio: DateTime(2000), dataFim: DateTime(2000)));
-    await tripRepository.inserir(Trip(dataInicio: DateTime(2000), dataFim: DateTime(2000)));
-    await tripRepository.inserir(Trip(dataInicio: DateTime(2000), dataFim: DateTime(2000)));
-    await tripRepository.inserir(Trip(dataInicio: DateTime(2000), dataFim: DateTime(2000)));
 
+  Future<int> inserir(String local) async {
+    return await tripRepository.inserir(
+      Trip(dataInicio: DateTime.now(), local: local),
+    );
   }
 }

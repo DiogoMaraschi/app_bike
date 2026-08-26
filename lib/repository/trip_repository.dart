@@ -8,16 +8,34 @@ class TripRepository {
 
   static const String tableName = 'trip';
 
-  Future<void> inserir(Trip trip) async{
+  Future<int> inserir(Trip trip) async {
     final conn = await databaseHelper.database;
 
-    conn.insert(tableName, trip.toMap());
+    return conn.insert(tableName, trip.toMap());
   }
 
-  Future<List<Trip>> buscar() async{
+  Future<List<Trip>> buscar() async {
     final conn = await databaseHelper.database;
 
     final result = await conn.query(tableName);
     return result.map((map) => Trip.fromMap(map)).toList();
+  }
+
+  Future<Trip?> buscarPorId(int id) async {
+    final conn = await databaseHelper.database;
+
+    final result = await conn.query(
+      tableName,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+
+    print('Resultado buscarPorId: $result');
+
+    if (result.isEmpty) {
+      return null;
+    }
+
+    return Trip.fromMap(result.first);
   }
 }
