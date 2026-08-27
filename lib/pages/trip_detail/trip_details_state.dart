@@ -80,6 +80,6 @@ class TripDetailsState extends ChangeNotifier {
   }
 
   Future<void> compartilharFotos() async {
-    await Share().compartilharFotos(trip!);
+    await Share().compartilharFotos(_fotos);
   }
 }

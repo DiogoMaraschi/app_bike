@@ -8,9 +8,9 @@ class FotoRepository {
 
   static const tableName = 'foto';
 
-  Future<void> salvar(Foto foto) async {
+  Future<int> salvar(Foto foto) async {
     final conn = await databaseHelper.database;
-    conn.insert(tableName, foto.toMap());
+    return await conn.insert(tableName, foto.toMap());
   }
 
   Future<List<Foto>> buscarPorTrip(int tripId) async {
