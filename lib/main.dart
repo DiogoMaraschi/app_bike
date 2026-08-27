@@ -1,10 +1,5 @@
-import 'dart:io';
-import 'package:desafio_academy/database/database_helper.dart';
 import 'package:desafio_academy/global.dart';
 import 'package:desafio_academy/pages/trip_list/trip_list_page.dart';
-import 'package:desafio_academy/repository/trip_repository.dart';
-import 'package:desafio_academy/service/camera.dart';
-import 'package:desafio_academy/service/geolocation.dart';
 import 'package:flutter/material.dart';
 
 void main() {

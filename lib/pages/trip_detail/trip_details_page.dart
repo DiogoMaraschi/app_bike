@@ -82,53 +82,66 @@ class _TripDetailsPage extends StatelessWidget {
                     ),
                   ],
                 ),
-          floatingActionButton: trip!.dataFim != null
+          floatingActionButton: trip == null
               ? null
               : Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     FloatingActionButton(
-                      heroTag: 'camera',
-                      onPressed: state.salvarFoto,
-                      child: const Icon(Icons.camera_alt),
+                      heroTag: 'share',
+                      onPressed: state.compartilharFotos,
+                      child: const Icon(Icons.share),
                     ),
-                    const SizedBox(height: 12),
-                    FloatingActionButton.extended(
-                      heroTag: 'finish',
-                      onPressed: () async {
-                        final confirmar = await showDialog<bool>(
-                          context: context,
-                          builder: (dialogContext) {
-                            return AlertDialog(
-                              title: const Text('Finalizar viagem?'),
-                              content: const Text(
-                                'Depois disso, não será possível adicionar fotos.',
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(dialogContext, false);
-                                  },
-                                  child: const Text('Cancelar'),
+
+                    if (trip.dataFim == null) ...[
+                      const SizedBox(height: 12),
+
+                      FloatingActionButton(
+                        heroTag: 'camera',
+                        onPressed: state.salvarFoto,
+                        child: const Icon(Icons.camera_alt),
+                      ),
+
+                      const SizedBox(height: 12),
+
+                      FloatingActionButton.extended(
+                        heroTag: 'finish',
+                        onPressed: () async {
+                          final confirmar = await showDialog<bool>(
+                            context: context,
+                            builder: (dialogContext) {
+                              return AlertDialog(
+                                title: const Text('Finalizar viagem?'),
+                                content: const Text(
+                                  'Depois disso, não será possível adicionar fotos.',
                                 ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pop(dialogContext, true);
-                                  },
-                                  child: const Text('Finalizar'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                        if (confirmar == true) {
-                          await state.finalizarTrip();
-                        }
-                      },
-                      icon: const Icon(Icons.flag),
-                      label: const Text('Finalizar'),
-                    ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(dialogContext, false);
+                                    },
+                                    child: const Text('Cancelar'),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(dialogContext, true);
+                                    },
+                                    child: const Text('Finalizar'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+
+                          if (confirmar == true) {
+                            await state.finalizarTrip();
+                          }
+                        },
+                        icon: const Icon(Icons.flag),
+                        label: const Text('Finalizar'),
+                      ),
+                    ],
                   ],
                 ),
         );

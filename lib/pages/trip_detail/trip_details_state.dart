@@ -2,6 +2,7 @@ import 'package:desafio_academy/global.dart';
 import 'package:desafio_academy/model/trip.dart';
 import 'package:desafio_academy/service/camera.dart';
 import 'package:desafio_academy/service/geolocation.dart';
+import 'package:desafio_academy/service/share.dart';
 import 'package:flutter/material.dart';
 import 'package:desafio_academy/model/foto.dart';
 import 'package:geolocator/geolocator.dart';
@@ -76,5 +77,9 @@ class TripDetailsState extends ChangeNotifier {
     await tripRepository.finalizarTrip(id, DateTime.now());
 
     await carregarTrip();
+  }
+
+  Future<void> compartilharFotos() async {
+    await Share().compartilharFotos(trip!);
   }
 }
